@@ -1,0 +1,207 @@
+{
+  "$schema": "./schema.md",
+  "version": 1,
+  "description": "20 labeled disputes with human ground-truth verdicts (claimant share %). Used to benchmark verdict accuracy.",
+  "cases": [
+    {
+      "id": "freelance-no-delivery",
+      "category": "freelance",
+      "summary": "Freelancer took deposit but delivered nothing",
+      "description": "Client paid 0.5 STT for a landing page. Freelancer disappeared after 2 weeks. GitHub repo is empty. No demo URL. No communication for 10 days.",
+      "claimantStatement": "I paid the full bond up front. Bob delivered nothing - no commits, no demo, no Figma. He stopped responding 10 days ago.",
+      "respondentStatement": "I had a family emergency. I will deliver next week.",
+      "expectedClaimantShare": 95,
+      "tolerance": 10
+    },
+    {
+      "id": "freelance-partial-delivery",
+      "category": "freelance",
+      "summary": "Freelancer delivered Figma only, no implementation",
+      "description": "Client paid 1.0 STT for a landing page implementation. Freelancer delivered only a Figma design, no code, no deployment.",
+      "claimantStatement": "Agreed scope was a deployed landing page. I received only a Figma file. The contract is in IPFS. No code was written.",
+      "respondentStatement": "Design phase took longer than expected because the brief kept changing. Implementation was milestone 2 and the client never approved milestone 1.",
+      "expectedClaimantShare": 70,
+      "tolerance": 15
+    },
+    {
+      "id": "freelance-on-time-quality-poor",
+      "category": "freelance",
+      "summary": "Delivered on time but quality is poor",
+      "description": "Freelancer delivered a working website on the deadline, but mobile layout is broken and 3 buttons don't work.",
+      "claimantStatement": "The site is broken on mobile and 3 CTA buttons do nothing. I cannot launch this.",
+      "respondentStatement": "I delivered on time. Bugs can be fixed in maintenance. The spec didn't mention mobile testing.",
+      "expectedClaimantShare": 60,
+      "tolerance": 15
+    },
+    {
+      "id": "freelance-fully-delivered",
+      "category": "freelance",
+      "summary": "Freelancer delivered exactly what was agreed, on time",
+      "description": "Freelancer delivered all milestones on time. Client now claims he never wanted the project and wants a refund.",
+      "claimantStatement": "I changed my mind and want a refund.",
+      "respondentStatement": "All milestones signed off via Slack. Live deployment URL provided. Code in client's GitHub org.",
+      "expectedClaimantShare": 5,
+      "tolerance": 10
+    },
+    {
+      "id": "freelance-scope-creep",
+      "category": "freelance",
+      "summary": "Client kept adding features beyond agreed scope",
+      "description": "Original scope was 5 pages. Client added 4 more pages mid-project without renegotiating price. Freelancer delivered the original 5 but refused the extras.",
+      "claimantStatement": "Freelancer only delivered 5 out of 9 pages I needed.",
+      "respondentStatement": "Contract was for 5 pages. I delivered 5. The other 4 were never part of the scope and were never paid for.",
+      "expectedClaimantShare": 15,
+      "tolerance": 15
+    },
+    {
+      "id": "saas-uptime-breach",
+      "category": "service-sla",
+      "summary": "SaaS provider missed 99.9% uptime SLA badly",
+      "description": "Annual SaaS contract guaranteed 99.9% uptime. Actual uptime over the quarter was 92% with three multi-hour outages affecting paying users.",
+      "claimantStatement": "Contract guarantees 99.9% uptime with refund clause. Status page shows 92% this quarter.",
+      "respondentStatement": "The outages were due to AWS regional failures outside our control. Force majeure applies.",
+      "expectedClaimantShare": 75,
+      "tolerance": 15
+    },
+    {
+      "id": "saas-minor-degradation",
+      "category": "service-sla",
+      "summary": "SaaS had brief degradation, mostly within SLA",
+      "description": "Hosting service had a 45-minute outage in one quarter. Otherwise uptime is 99.95%, above the contracted 99.9%.",
+      "claimantStatement": "There was a 45-minute outage that disrupted my business call. I want a partial refund.",
+      "respondentStatement": "Quarterly uptime was 99.93%, above the contracted 99.9%. SLA was met.",
+      "expectedClaimantShare": 15,
+      "tolerance": 15
+    },
+    {
+      "id": "nft-mint-rugpull",
+      "category": "nft",
+      "summary": "NFT project never delivered promised utility",
+      "description": "User minted NFT for 0.1 ETH equivalent based on roadmap promising metaverse access. 6 months later, no metaverse, no Discord activity, team anonymous.",
+      "claimantStatement": "Roadmap promised metaverse access by Q2. Q2 is over. Discord is dead. Devs are anonymous and stopped posting.",
+      "respondentStatement": "Markets are tough. We are still building. Plans have shifted.",
+      "expectedClaimantShare": 85,
+      "tolerance": 15
+    },
+    {
+      "id": "nft-mint-as-described",
+      "category": "nft",
+      "summary": "NFT delivered exactly as the mint page promised",
+      "description": "User minted a pure-art NFT collection. The mint page only promised the JPEG, nothing else. User now demands a refund because secondary market dropped.",
+      "claimantStatement": "The floor price collapsed and the artist has not been posting much.",
+      "respondentStatement": "The mint page promised only the artwork and a low-res reveal. I delivered both. There was no utility roadmap.",
+      "expectedClaimantShare": 5,
+      "tolerance": 10
+    },
+    {
+      "id": "marketplace-fake-item",
+      "category": "marketplace",
+      "summary": "Buyer received a counterfeit item",
+      "description": "Buyer paid for a 'authentic' Rolex on a P2P marketplace. Receiver inspected it - movement is generic Chinese clone. Seller listed it as 'authentic, with papers'.",
+      "claimantStatement": "Watch arrived. Authentication shop confirmed it's a counterfeit. Listing said 'authentic with papers'. No papers were included.",
+      "respondentStatement": "I sold it as-is. Buyer should have inspected before purchase.",
+      "expectedClaimantShare": 90,
+      "tolerance": 10
+    },
+    {
+      "id": "marketplace-buyers-remorse",
+      "category": "marketplace",
+      "summary": "Buyer changed mind after receiving item exactly as described",
+      "description": "Buyer purchased a used laptop. It arrived matching the listing photos exactly. Buyer now says they 'don't like the color'.",
+      "claimantStatement": "I don't like the color anymore.",
+      "respondentStatement": "Item matches the listing. Photos show the exact color. Buyer never asked questions before purchase.",
+      "expectedClaimantShare": 5,
+      "tolerance": 10
+    },
+    {
+      "id": "marketplace-damaged-shipping",
+      "category": "marketplace",
+      "summary": "Item arrived damaged due to seller's poor packaging",
+      "description": "Buyer purchased a fragile vintage camera. Seller wrapped it in newspaper only. Camera arrived with broken lens mount.",
+      "claimantStatement": "Camera lens mount is cracked. Seller used newspaper only. Carrier confirms packaging was inadequate.",
+      "respondentStatement": "Carrier damaged it during transit. I am not liable for shipping damage.",
+      "expectedClaimantShare": 75,
+      "tolerance": 15
+    },
+    {
+      "id": "rental-property-damage",
+      "category": "rental",
+      "summary": "Tenant caused damage beyond normal wear",
+      "description": "Tenant moved out leaving stained carpet, hole in wall, and broken appliance. Landlord bond was held in escrow.",
+      "claimantStatement": "Landlord is refusing to return my bond over minor wear.",
+      "respondentStatement": "Carpet professionally cleaned showed permanent stains. Drywall has a 6-inch punch hole. Microwave does not power on. Move-in inspection signed by tenant.",
+      "expectedClaimantShare": 20,
+      "tolerance": 15
+    },
+    {
+      "id": "rental-normal-wear",
+      "category": "rental",
+      "summary": "Landlord withheld bond for normal wear and tear",
+      "description": "Tenant moved out after 2 years. Light scuffs on walls, slightly worn carpet. Landlord withheld full bond claiming damage.",
+      "claimantStatement": "I lived there 2 years. Scuffs are normal wear. Landlord wants to repaint and charge me.",
+      "respondentStatement": "Walls have many scuffs. Repainting cost is real.",
+      "expectedClaimantShare": 85,
+      "tolerance": 15
+    },
+    {
+      "id": "consulting-deliverables-late",
+      "category": "consulting",
+      "summary": "Consultant delivered report 3 weeks late, with caveats",
+      "description": "Consultant was due to deliver market research by date X. Delivered 3 weeks late. Report quality is solid but client missed an investor meeting.",
+      "claimantStatement": "Report was 3 weeks late, I missed the investor pitch I commissioned it for.",
+      "respondentStatement": "Client kept adding interview targets which extended the timeline. Final report is comprehensive.",
+      "expectedClaimantShare": 50,
+      "tolerance": 15
+    },
+    {
+      "id": "consulting-no-show",
+      "category": "consulting",
+      "summary": "Consultant invoiced but never delivered",
+      "description": "Consultant invoiced for 40 hours of strategy work over 2 months. No deck, no notes, no calls recorded.",
+      "claimantStatement": "I have no deliverables. No meeting notes. No deck. The consultant only had 2 calls with me.",
+      "respondentStatement": "Strategy work is intangible. I delivered value through conversations.",
+      "expectedClaimantShare": 80,
+      "tolerance": 15
+    },
+    {
+      "id": "stake-slashing-malicious",
+      "category": "validator",
+      "summary": "Validator was slashed for double-signing",
+      "description": "Delegator's stake was slashed because the validator double-signed. Validator claims it was a software bug.",
+      "claimantStatement": "I lost 8% of my stake because the validator double-signed. They should compensate me from their commission earnings.",
+      "respondentStatement": "It was a software bug in the new version, not malice. Slashing should not pass through to delegators.",
+      "expectedClaimantShare": 65,
+      "tolerance": 20
+    },
+    {
+      "id": "dao-grant-no-output",
+      "category": "dao",
+      "summary": "DAO grantee took funds but produced no output",
+      "description": "DAO grant of 5000 STT for an analytics dashboard. 6 months later: no repo, no demo, no progress reports.",
+      "claimantStatement": "Grantee has not posted any updates, has not opened any commits, has not delivered the dashboard.",
+      "respondentStatement": "Building takes time. I am still working on it privately.",
+      "expectedClaimantShare": 90,
+      "tolerance": 10
+    },
+    {
+      "id": "dao-grant-partial-output",
+      "category": "dao",
+      "summary": "DAO grantee delivered alpha but missed deadline",
+      "description": "DAO grant of 3000 STT for a wallet integration. Grantee delivered a working alpha at 80% spec, but 2 months late.",
+      "claimantStatement": "Delivery was 2 months late and the alpha is missing 20% of the agreed features.",
+      "respondentStatement": "Alpha is live and working. The missing 20% is in code review. I have shipped 80% of the spec.",
+      "expectedClaimantShare": 25,
+      "tolerance": 15
+    },
+    {
+      "id": "ambiguous-spec-fault",
+      "category": "edge-case",
+      "summary": "Both parties at fault due to ambiguous contract",
+      "description": "Two parties disagree on what 'production-ready' means. Original contract did not define the term. Freelancer's deliverable works but lacks tests and CI.",
+      "claimantStatement": "Production-ready means CI, tests, monitoring. None of those exist.",
+      "respondentStatement": "Production-ready means it runs in production without crashing. The site is live and serves users.",
+      "expectedClaimantShare": 50,
+      "tolerance": 20
+    }
+  ]
+}

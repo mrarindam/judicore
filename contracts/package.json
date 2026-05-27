@@ -1,0 +1,29 @@
+{
+  "name": "judicore-contracts",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Judicore - Autonomous AI arbitration layer on Somnia",
+  "scripts": {
+    "compile": "hardhat compile",
+    "clean": "hardhat clean",
+    "test": "hardhat test",
+    "node": "hardhat node",
+    "deploy:testnet": "hardhat run scripts/deploy.ts --network somniaTestnet",
+    "demo:freelance": "hardhat run scripts/demos/freelance.ts --network somniaTestnet",
+    "demo:freelance:local": "hardhat run scripts/demos/freelance.ts",
+    "benchmark": "hardhat run scripts/benchmark.ts",
+    "verify:testnet": "hardhat verify --network somniaTestnet"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^5.0.0",
+    "@nomicfoundation/hardhat-verify": "^2.0.0",
+    "@types/node": "^20.10.0",
+    "dotenv": "^16.3.1",
+    "hardhat": "^2.22.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.0"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^5.0.0"
+  }
+}
