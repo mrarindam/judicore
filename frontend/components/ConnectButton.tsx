@@ -66,7 +66,9 @@ export function ConnectButton() {
                     type="button"
                   >
                     {account.displayName}
-                    {account.displayBalance ? ` (${account.displayBalance})` : ""}
+                    {account.displayBalance && !/nan/i.test(account.displayBalance)
+                      ? ` (${account.displayBalance})`
+                      : ""}
                   </button>
                 </div>
               );

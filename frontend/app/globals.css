@@ -354,6 +354,7 @@
   .border-line-strong { border-color: var(--border-strong); }
   .bg-elev { background: var(--bg-elev); }
   .bg-elev-2 { background: var(--bg-elev-2); }
+  .bg-base { background: var(--bg-base); }
 
   /* Noise overlay */
   .noise::before {

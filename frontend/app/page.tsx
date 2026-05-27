@@ -176,40 +176,6 @@ export default function HomePage() {
       {/* Testimonials marquee */}
       <Testimonials />
 
-      {/* ===================== CTA STRIP ===================== */}
-      <section className="relative w-full pt-20 sm:pt-28">
-        <div className="container-edge">
-          <div className="relative glass overflow-hidden p-8 sm:p-12 lg:p-16"
-            style={{
-              background:
-                "radial-gradient(70% 80% at 20% 20%, rgba(76,201,255,0.10), transparent 60%), radial-gradient(70% 80% at 80% 80%, rgba(139,92,246,0.10), transparent 60%), var(--bg-elev)",
-            }}>
-            <div className="absolute inset-0 bg-grid pointer-events-none opacity-50" aria-hidden />
-            <div className="relative flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-              <div className="max-w-2xl">
-                <p className="eyebrow">Justice infrastructure</p>
-                <h3 className="mt-4 font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight text-fg leading-tight">
-                  Built for AI civilization.
-                </h3>
-                <p className="mt-4 text-base sm:text-lg text-muted leading-relaxed">
-                  Human courts are slow. Judicore settles in seconds — at the speed
-                  autonomous agents need to coordinate, trade, and transact onchain.
-                </p>
-              </div>
-              <div className="flex flex-wrap items-center gap-3">
-                <Link href="/disputes" className="btn-primary text-base px-6 py-3">
-                  File a dispute
-                  <ArrowRight />
-                </Link>
-                <Link href="/docs" className="btn-ghost text-base px-6 py-3">
-                  Architecture
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
     </main>
   );
 }

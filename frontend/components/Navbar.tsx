@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useTheme } from "next-themes";
 import { ConnectButton } from "@/components/ConnectButton";
 
@@ -17,6 +17,7 @@ export function Navbar() {
   const pathname = usePathname();
   const [mounted, setMounted] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   useEffect(() => {
     setMounted(true);
@@ -26,12 +27,25 @@ export function Navbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [menuOpen]);
+
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 border-b pointer-events-none ${
+      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 border-b border-line bg-base pointer-events-none ${
         scrolled
-          ? "border-line bg-elev/85 backdrop-blur-2xl shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5)] py-3"
-          : "border-transparent bg-transparent py-5"
+          ? "shadow-[0_8px_32px_-8px_rgba(0,0,0,0.5)] py-3"
+          : "py-5"
       }`}
     >
       <div className="mx-auto flex items-center justify-between gap-2 px-4 sm:px-6 md:px-8 w-full pointer-events-none">
@@ -75,8 +89,67 @@ export function Navbar() {
         <div className="flex items-center gap-1.5 sm:gap-2 pointer-events-auto">
           {mounted && <ThemeToggle />}
           <ConnectButton />
+          <button
+            type="button"
+            aria-label="Open menu"
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen((v) => !v)}
+            className="md:hidden relative inline-flex items-center justify-center h-9 w-9 rounded-full border border-line bg-elev hover:border-electric/40 transition-colors cursor-pointer"
+          >
+            {menuOpen ? (
+              <svg viewBox="0 0 24 24" className="h-4 w-4 text-fg" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 6 6 18M6 6l12 12" />
+              </svg>
+            ) : (
+              <svg viewBox="0 0 24 24" className="h-4 w-4 text-fg" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 6h18M3 12h18M3 18h18" />
+              </svg>
+            )}
+          </button>
         </div>
       </div>
+
+      <AnimatePresence>
+        {menuOpen && (
+          <>
+            <motion.div
+              key="nav-overlay"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.18 }}
+              onClick={() => setMenuOpen(false)}
+              className="md:hidden fixed inset-0 top-[64px] bg-black/40 backdrop-blur-sm pointer-events-auto"
+            />
+            <motion.nav
+              key="nav-sheet"
+              initial={{ opacity: 0, y: -8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.2 }}
+              className="md:hidden absolute left-3 right-3 top-full mt-2 rounded-2xl border border-line bg-elev/95 backdrop-blur-2xl shadow-[0_16px_48px_-8px_rgba(0,0,0,0.6)] p-2 pointer-events-auto"
+            >
+              {NAV_ITEMS.map((it) => {
+                const active = isActive(pathname, it.href);
+                return (
+                  <Link
+                    key={it.href}
+                    href={it.href}
+                    onClick={() => setMenuOpen(false)}
+                    className={`block px-4 py-3 rounded-xl text-sm font-medium transition-colors ${
+                      active
+                        ? "text-fg bg-gradient-to-br from-electric/15 to-violet-500/15 border border-electric/30"
+                        : "text-muted hover:text-fg hover:bg-white/5 border border-transparent"
+                    }`}
+                  >
+                    {it.label}
+                  </Link>
+                );
+              })}
+            </motion.nav>
+          </>
+        )}
+      </AnimatePresence>
     </header>
   );
 }
